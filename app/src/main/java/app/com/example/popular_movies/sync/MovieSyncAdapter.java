@@ -202,10 +202,12 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
                 //   if(getContext().getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI+"/"+item.getString("id"),))
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                String concatFavMovieIds = prefs.getString("FAVMOVIES", "");
-                deleteCount = getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, MovieContract.MovieEntry.COLUMN_MOVIE_ID + " not in (?)", new String[]{concatFavMovieIds});
+                //String concatFavMovieIds = prefs.getString("FAVMOVIES", "");
+                deleteCount = getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, MovieContract.MovieEntry.COLUMN_MOVIE_ID,null); //+ " not in (?)", new String[]{concatFavMovieIds});
                 insertCount = getContext().getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, cVVector);
             }
+
+
             Log.d(LOG_TAG, "FetchMovieTask Complete. " + deleteCount + " Deleted ," + insertCount + " Inserted");
 
         } catch (JSONException e) {
